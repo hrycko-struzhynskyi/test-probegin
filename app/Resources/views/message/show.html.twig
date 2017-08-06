@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Message</h1>
+
+    <form id="show-message" method="post" action="{{ path('message_check_password', {'access_key': message.getAccessKey()}) }}">
+        Message password
+        <input type="password" id="show-message-password">
+        <input type="submit" value="Show">
+    </form>
+    <div id="message-result"></div>
+
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var messageHash = '{{ message.text }}';
+
+        $('#show-message').submit(function () {
+            var passHash = hex_md5($('#show-message-password').val());
+            $.ajax({
+                url: $(this).attr('action') + '/' + passHash,
+                dataType: "json"
+            }).done(function (responce) {
+                if (responce.status === 'ok'){
+                    $('#show-message').hide();
+                    var text = decodeMessage(messageHash, passHash);
+                    $('#message-result').text(text);
+                } else {
+                    alert('Password incorrect');
+                }
+            }).fail(function (responce) {
+                alert(responce);
+            });
+
+            return false;
+        });
+    </script>
+{% endblock %}

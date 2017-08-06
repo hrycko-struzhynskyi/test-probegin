@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="new-message-form">
+                <h1>Message creation</h1>
+
+                {{ form_start(form) }}
+                    {{ form_widget(form) }}
+                    <input type="submit" value="Create" />
+                {{ form_end(form) }}
+            </div>
+            <div id="result" style="display: none">
+                <div id="welcome">
+                    <h1>Message created</h1>
+                </div>
+                <div id="status">
+                    <p>
+                        Access url
+                        <a id="access-url" href="{{ path('message_new') }}">
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('js/new_message.js') }}"></script>
+{% endblock %}

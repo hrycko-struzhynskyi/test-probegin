@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="wrapper">
+        <div id="container">
+            <div id="welcome">
+                <h1><span>Welcome to</span> Test App</h1>
+            </div>
+
+            <div id="status">
+                <p>
+                    You can
+                    <a href="{{ path('message_new') }}">
+                        add message
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}
